@@ -1,7 +1,5 @@
 # BB UI addons plugin
 
-[![Build status](https://ci.appveyor.com/api/projects/status/w21j2rcek9g9v8vv/branch/master?svg=true)](https://ci.appveyor.com/project/HybridEidolon/psobbaddonplugin/branch/master)
-
 A plugin for Phantasy Star Online Blue Burst that enables graphical UI addons,
 which can read the game's memory and present additional useful information.
 
@@ -10,7 +8,7 @@ which can read the game's memory and present additional useful information.
 
 ## Installation
 
-1. Download the latest release from the [Releases](https://github.com/HybridEidolon/psobbaddonplugin/releases) page
+1. Download the latest release from the [Releases](/../../releases) page
 and extract the zip contents to your PSOBB directory.
 2. Install the [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145).
 3. Run the game.
