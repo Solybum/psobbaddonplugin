@@ -60,3 +60,5 @@ PSO specific functions are in the `pso` global table.
  * list_directory_files -- list files in the specified directory under the addons directory.
  * set_language -- used by the Settings Editor to set the internal language for addons.
  * get_language -- retrieves the language value for addons to handle translation.
+ * get_version -- returns a table containing fields `version_string`, `major`, `minor`, and `patch`. The latter three are integer values corresponding to the plugin's version number. The `version_string` is a string representation.
+ * require_version -- accepts three arguments specifying the version and returns true if the plugin's version is at that level or higher.
