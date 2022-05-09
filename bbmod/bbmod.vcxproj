@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="src\version.h" />
     <ClInclude Include="src\d3d8.h" />
     <ClInclude Include="src\d3d8caps.h" />
     <ClInclude Include="src\d3d8types.h" />
