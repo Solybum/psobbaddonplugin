@@ -580,7 +580,7 @@ END_IMGUI_FUNC
 // Variadic functions aren't suppported but here it is anyway
 IMGUI_FUNCTION(Text)
 LABEL_ARG(fmt)
-CALL_FUNCTION_NO_RET(Text, fmt)
+CALL_FUNCTION_NO_RET(Text, "%s", fmt)
 END_IMGUI_FUNC
 //    IMGUI_API void          TextV(const char* fmt, va_list args);
 // Unsupported arg type  va_list args
@@ -589,7 +589,7 @@ END_IMGUI_FUNC
 IMGUI_FUNCTION(TextColored)
 IM_VEC_4_ARG(col)
 LABEL_ARG(fmt)
-CALL_FUNCTION_NO_RET(TextColored, col, fmt)
+CALL_FUNCTION_NO_RET(TextColored, col, "%s", fmt)
 END_IMGUI_FUNC
 //    IMGUI_API void          TextColoredV(const ImVec4& col, const char* fmt, va_list args);
 // Unsupported arg type  va_list args
@@ -597,7 +597,7 @@ END_IMGUI_FUNC
 // Variadic functions aren't suppported but here it is anyway
 IMGUI_FUNCTION(TextDisabled)
 LABEL_ARG(fmt)
-CALL_FUNCTION_NO_RET(TextDisabled, fmt)
+CALL_FUNCTION_NO_RET(TextDisabled, "%s", fmt)
 END_IMGUI_FUNC
 //    IMGUI_API void          TextDisabledV(const char* fmt, va_list args);
 // Unsupported arg type  va_list args
@@ -605,7 +605,7 @@ END_IMGUI_FUNC
 // Variadic functions aren't suppported but here it is anyway
 IMGUI_FUNCTION(TextWrapped)
 LABEL_ARG(fmt)
-CALL_FUNCTION_NO_RET(TextWrapped, fmt)
+CALL_FUNCTION_NO_RET(TextWrapped, "%s", fmt)
 END_IMGUI_FUNC
 //    IMGUI_API void          TextWrappedV(const char* fmt, va_list args);
 // Unsupported arg type  va_list args
@@ -620,7 +620,7 @@ END_IMGUI_FUNC
 IMGUI_FUNCTION(LabelText)
 LABEL_ARG(label)
 LABEL_ARG(fmt)
-CALL_FUNCTION_NO_RET(LabelText, label, fmt)
+CALL_FUNCTION_NO_RET(LabelText, label, "%s", fmt)
 END_IMGUI_FUNC
 //    IMGUI_API void          LabelTextV(const char* label, const char* fmt, va_list args);
 // Unsupported arg type  va_list args
@@ -632,7 +632,7 @@ END_IMGUI_FUNC
 // Variadic functions aren't suppported but here it is anyway
 IMGUI_FUNCTION(BulletText)
 LABEL_ARG(fmt)
-CALL_FUNCTION_NO_RET(BulletText, fmt)
+CALL_FUNCTION_NO_RET(BulletText, "%s", fmt)
 END_IMGUI_FUNC
 //    IMGUI_API void          BulletTextV(const char* fmt, va_list args);
 // Unsupported arg type  va_list args
