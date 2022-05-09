@@ -6,6 +6,7 @@
 #include "lua_hooks.h"
 #include "luastate.h"
 #include "log.h"
+#include "version.h"
 #include "wrap_imgui_impl.h"
 #define PSOBB_HWND_PTR (HWND*)(0x00ACBED8 - 0x00400000 + g_PSOBaseAddress)
 static int wrap_exceptions(lua_State *L, lua_CFunction f);
@@ -20,6 +21,8 @@ static void psolualib_change_global_font(std::string font_name, float font_size,
 static sol::table psolualib_list_font_files();
 static void psolualib_set_language(std::string lang = "EN");
 static std::string psolualib_get_language();
+static sol::table psolualib_get_version();
+static bool psolualib_require_version(int major, int minor, int patch);
 
 bool psolua_initialize_on_next_frame = false;
 
@@ -184,6 +187,8 @@ void psolua_load_library(lua_State * L) {
     psoTable["list_font_files"] = psolualib_list_font_files;
     psoTable["set_language"] = psolualib_set_language;
     psoTable["get_language"] = psolualib_get_language;
+    psoTable["get_version"] = psolualib_get_version;
+    psoTable["require_version"] = psolualib_require_version;
     lua["print"]("PSOBB Base address is ", g_PSOBaseAddress);
 
     // Exception handling
@@ -480,4 +485,43 @@ void psolualib_set_language(std::string lang) {
 
 std::string psolualib_get_language() {
     return g_LanguageSetting;
+}
+
+// Returns false on error or if version specified by t is lower than current.
+// Returns true if the specified version is greater or equal to the plugin's version.
+static bool psolualib_require_version(int major, int minor, int patch) {
+
+    if (BBMOD_VERSION_MAJOR < major)
+        return false; 
+    if (BBMOD_VERSION_MAJOR > major)
+        return true;
+
+    // major matches, check minor and patch
+    if (BBMOD_VERSION_MINOR < minor)
+        return false;
+    if (BBMOD_VERSION_MINOR > minor)
+        return true;
+
+    // major and minor match, check patch
+    if (BBMOD_VERSION_PATCH < patch)
+        return false;
+    if (BBMOD_VERSION_PATCH >= patch)
+        return true;
+
+    // doesn't get here
+    return false;
+}
+
+// Returns the version inside a table.
+static sol::table psolualib_get_version() {
+    sol::state_view lua(g_LuaState);
+
+    sol::table ret = lua.create_table();
+
+    ret.set("version_string", std::string(BBMOD_VERSION_STRING));
+    ret.set("major", BBMOD_VERSION_MAJOR);
+    ret.set("minor", BBMOD_VERSION_MINOR);
+    ret.set("patch", BBMOD_VERSION_PATCH);
+
+    return ret;
 }
