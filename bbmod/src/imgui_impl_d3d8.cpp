@@ -65,8 +65,9 @@ struct CUSTOMVERTEX
 typedef LRESULT(WINAPI *TFNWndProc)(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 static TFNWndProc oldWinProc;
 
-LONG psobb_resolution_x() { return *(int *)0x9006F4; }
-LONG psobb_resolution_y() { return *(int *)0x9006F8; }
+// Get the window size from the values in the code passed to CreateWindowExA()
+LONG psobb_resolution_x() { return **(int **)0x82D140; }
+LONG psobb_resolution_y() { return **(int **)0x82D18A; }
 
 // Convert the WM_MOUSEMOVE parameter coordinates from Windows screen coordinates (relative to the view) to ImGui coordinates.
 static void ImGui_ImplD3D8_ConvertMouseCoordsToImGui(signed short xMouse, signed short yMouse)
@@ -285,6 +286,7 @@ void ImGui_ImplD3D8_RenderDrawLists(ImDrawData* draw_data)
     // Setup render state: fixed-pipeline, alpha-blending, no face culling, no depth testing
     g_device->GetDepthStencilSurface(&realDepthStencilBuffer);
     g_device->SetRenderTarget(nullptr, g_DepthBuffer);
+    //g_device->SetRenderTarget(nullptr, realDepthStencilBuffer);
     g_device->SetPixelShader(NULL);
     g_device->SetVertexShader(D3DFVF_CUSTOMVERTEX);
     g_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -422,7 +424,8 @@ static bool ImGui_ImplD3D8_CreateDepthStencilBuffer() {
         if (realDepth->GetDesc(&sfcDesc)) {
             return false;
         }
-        if (g_device->CreateDepthStencilSurface(sfcDesc.Width, sfcDesc.Height, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, &g_DepthBuffer)) {
+        
+        if (g_device->CreateDepthStencilSurface(sfcDesc.Width, sfcDesc.Height, D3DFMT_D24S8, sfcDesc.MultiSampleType, &g_DepthBuffer)) {
             return false;
         }
     }
