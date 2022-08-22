@@ -286,7 +286,6 @@ void ImGui_ImplD3D8_RenderDrawLists(ImDrawData* draw_data)
     // Setup render state: fixed-pipeline, alpha-blending, no face culling, no depth testing
     g_device->GetDepthStencilSurface(&realDepthStencilBuffer);
     g_device->SetRenderTarget(nullptr, g_DepthBuffer);
-    //g_device->SetRenderTarget(nullptr, realDepthStencilBuffer);
     g_device->SetPixelShader(NULL);
     g_device->SetVertexShader(D3DFVF_CUSTOMVERTEX);
     g_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -344,6 +343,8 @@ void ImGui_ImplD3D8_RenderDrawLists(ImDrawData* draw_data)
                 //int dbcount = 0;
                 const RECT r = { (LONG)pcmd->ClipRect.x, (LONG)pcmd->ClipRect.y, (LONG)pcmd->ClipRect.z, (LONG)pcmd->ClipRect.w };
                 build_mask_vbuffer(&r);
+                g_device->SetRenderState(D3DRS_LIGHTING, 0);
+                g_device->SetRenderState(D3DRS_FOGENABLE, 0);
                 g_device->SetRenderState(D3DRS_COLORWRITEENABLE, 0);
                 g_device->SetRenderState(D3DRS_ZENABLE, true);
                 g_device->SetRenderState(D3DRS_STENCILENABLE, true);
@@ -361,6 +362,8 @@ void ImGui_ImplD3D8_RenderDrawLists(ImDrawData* draw_data)
 
                 g_device->SetStreamSource(0, g_pVB, sizeof(CUSTOMVERTEX));
                 g_device->SetIndices(g_pIB, vtx_offset);
+                g_device->SetRenderState(D3DRS_LIGHTING, 0);
+                g_device->SetRenderState(D3DRS_FOGENABLE, 0);
                 g_device->SetRenderState(D3DRS_COLORWRITEENABLE, 0xF);
                 g_device->SetRenderState(D3DRS_ZENABLE, false);
                 g_device->SetRenderState(D3DRS_STENCILENABLE, true);
