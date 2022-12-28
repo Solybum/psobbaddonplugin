@@ -13,6 +13,9 @@ local window_open = true
 local exit_game_window = false
 
 init = function()
+  -- close main menu automatically
+  key_pressed(192)
+
   return {
     name = "Core - Main Menu",
     author = "Eidolon",
