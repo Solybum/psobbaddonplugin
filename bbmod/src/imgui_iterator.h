@@ -1875,7 +1875,6 @@ NUMBER_ARG(colBL)
 CALL_DRAWLIST_FUNCTION_NO_RET(AddRectFilledMultiColor, a, b, colUL, colUR, colBR, colBL)
 END_IMGUI_FUNC
 
-// TODO
 //IMGUI_API void  AddQuad(const ImVec2 &a, const ImVec2 &b, const ImVec2 &c, const ImVec2 &d, ImU32 col, float thickness = 1.0f);
 IMGUI_FUNCTION(AddQuad)
 IM_VEC_2_ARG(a)
