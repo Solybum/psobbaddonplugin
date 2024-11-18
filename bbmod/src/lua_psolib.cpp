@@ -487,7 +487,7 @@ std::string psolualib_get_language() {
     return g_LanguageSetting;
 }
 
-// Returns false on error or if version specified by t is lower than current.
+// Returns false on error or if version specified by major, minor, path is lower than current.
 // Returns true if the specified version is greater or equal to the plugin's version.
 static bool psolualib_require_version(int major, int minor, int patch) {
 
