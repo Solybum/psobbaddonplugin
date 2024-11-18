@@ -354,6 +354,12 @@ static int impl_##name(lua_State *L) { \
 #define CALL_FUNCTION_NO_RET(name, ...) \
   ImGui::name(__VA_ARGS__);
 
+#define CALL_DRAWLIST_FUNCTION(name, retType, ...) \
+  retType ret = ImGui::GetWindowDrawList()->name(__VA_ARGS__);
+
+#define CALL_DRAWLIST_FUNCTION_NO_RET(name, ...) \
+  ImGui::GetWindowDrawList()->name(__VA_ARGS__);
+
 #define PUSH_NUMBER(name) \
   lua_pushnumber(L, name); \
   stackval++;
@@ -669,6 +675,10 @@ static const struct luaL_Reg imguilib[] = {
 #define CALL_FUNCTION(name, retType, ...)
 #undef CALL_FUNCTION_NO_RET
 #define CALL_FUNCTION_NO_RET(name, ...)
+#undef CALL_DRAWLIST_FUNCTION
+#define CALL_DRAWLIST_FUNCTION(name, retType, ...)
+#undef CALL_DRAWLIST_FUNCTION_NO_RET
+#define CALL_DRAWLIST_FUNCTION_NO_RET(name, ...)
 #undef PUSH_NUMBER
 #define PUSH_NUMBER(name)
 #undef PUSH_BOOL
