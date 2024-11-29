@@ -487,8 +487,10 @@ std::string psolualib_get_language() {
     return g_LanguageSetting;
 }
 
-// Returns false on error or if version specified by t is lower than current.
-// Returns true if the specified version is greater or equal to the plugin's version.
+// Returns false if the version specified by major, minor, and patch exceeds the plugin's version.
+// That is, this function returns false if the addon plugin is behind the specified version.
+// And this function returns true if the addon's version is equal or more recent than
+// the specified version.
 static bool psolualib_require_version(int major, int minor, int patch) {
 
     if (BBMOD_VERSION_MAJOR < major)

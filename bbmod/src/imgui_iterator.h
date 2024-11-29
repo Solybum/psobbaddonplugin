@@ -1833,6 +1833,131 @@ IMGUI_FUNCTION(GetVersion)
 CALL_FUNCTION(GetVersion, const char*)
 PUSH_STRING(ret)
 END_IMGUI_FUNC
+
+//IMGUI_API void  AddLine(const ImVec2 &a, const ImVec2 &b, ImU32 col, float thickness = 1.0f);
+IMGUI_FUNCTION(AddLine)
+IM_VEC_2_ARG(a)
+IM_VEC_2_ARG(b)
+NUMBER_ARG(col)
+OPTIONAL_NUMBER_ARG(thickness, 1.0f)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddLine, a, b, col, thickness)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddRect(const ImVec2 &a, const ImVec2 &b, ImU32 col, float rounding = 0.0f, int rounding_corners = 0x0F, float thickness = 1.0f);   // a: upper-left, b: lower-right
+IMGUI_FUNCTION(AddRect)
+IM_VEC_2_ARG(a)
+IM_VEC_2_ARG(b)
+NUMBER_ARG(col)
+OPTIONAL_NUMBER_ARG(rounding, 0.0f)
+OPTIONAL_INT_ARG(rounding_corners, 0x0F)
+OPTIONAL_NUMBER_ARG(thickness, 1.0f)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddRect, a, b, col, rounding, rounding_corners, thickness)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddRectFilled(const ImVec2 &a, const ImVec2 &b, ImU32 col, float rounding = 0.0f, int rounding_corners = 0x0F);                     // a: upper-left, b: lower-right
+IMGUI_FUNCTION(AddRectFilled)
+IM_VEC_2_ARG(a)
+IM_VEC_2_ARG(b)
+NUMBER_ARG(col)
+OPTIONAL_NUMBER_ARG(rounding, 0.0f)
+OPTIONAL_INT_ARG(rounding_corners, 0x0F)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddRectFilled, a, b, col, rounding, rounding_corners)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddRectFilledMultiColor(const ImVec2 &a, const ImVec2 &b, ImU32 col_upr_left, ImU32 col_upr_right, ImU32 col_bot_right, ImU32 col_bot_left);
+IMGUI_FUNCTION(AddRectFilledMultiColor)
+IM_VEC_2_ARG(a)
+IM_VEC_2_ARG(b)
+NUMBER_ARG(colUL)
+NUMBER_ARG(colUR)
+NUMBER_ARG(colBR)
+NUMBER_ARG(colBL)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddRectFilledMultiColor, a, b, colUL, colUR, colBR, colBL)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddQuad(const ImVec2 &a, const ImVec2 &b, const ImVec2 &c, const ImVec2 &d, ImU32 col, float thickness = 1.0f);
+IMGUI_FUNCTION(AddQuad)
+IM_VEC_2_ARG(a)
+IM_VEC_2_ARG(b)
+IM_VEC_2_ARG(c)
+IM_VEC_2_ARG(d)
+NUMBER_ARG(col)
+OPTIONAL_NUMBER_ARG(thickness, 1.0f)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddQuad, a, b, c, d, col, thickness)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddQuadFilled(const ImVec2 &a, const ImVec2 &b, const ImVec2 &c, const ImVec2 &d, ImU32 col);
+IMGUI_FUNCTION(AddQuadFilled)
+IM_VEC_2_ARG(a)
+IM_VEC_2_ARG(b)
+IM_VEC_2_ARG(c)
+IM_VEC_2_ARG(d)
+NUMBER_ARG(col)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddQuadFilled, a, b, c, d, col)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddTriangle(const ImVec2 &a, const ImVec2 &b, const ImVec2 &c, ImU32 col, float thickness = 1.0f);
+IMGUI_FUNCTION(AddTriangle)
+IM_VEC_2_ARG(a)
+IM_VEC_2_ARG(b)
+IM_VEC_2_ARG(c)
+NUMBER_ARG(col)
+OPTIONAL_NUMBER_ARG(thickness, 1.0f)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddTriangle, a, b, c, col, thickness)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddTriangleFilled(const ImVec2 &a, const ImVec2 &b, const ImVec2 &c, ImU32 col);
+IMGUI_FUNCTION(AddTriangleFilled)
+IM_VEC_2_ARG(a)
+IM_VEC_2_ARG(b)
+IM_VEC_2_ARG(c)
+NUMBER_ARG(col)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddTriangleFilled, a, b, c, col)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddCircle(const ImVec2 &centre, float radius, ImU32 col, int num_segments = 12, float thickness = 1.0f);
+IMGUI_FUNCTION(AddCircle)
+IM_VEC_2_ARG(center)
+NUMBER_ARG(radius)
+NUMBER_ARG(col)
+OPTIONAL_INT_ARG(num_segments, 12)
+OPTIONAL_NUMBER_ARG(thickness, 1.0f)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddCircle, center, radius, col, num_segments, thickness)
+END_IMGUI_FUNC
+
+//IMGUI_API void  AddCircleFilled(const ImVec2 &centre, float radius, ImU32 col, int num_segments = 12);
+IMGUI_FUNCTION(AddCircleFilled)
+IM_VEC_2_ARG(center)
+NUMBER_ARG(radius)
+NUMBER_ARG(col)
+OPTIONAL_INT_ARG(num_segments, 12)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddCircleFilled, center, radius, col, num_segments)
+END_IMGUI_FUNC
+
+
+//IMGUI_API void  AddBezierCurve(const ImVec2 &pos0, const ImVec2 &cp0, const ImVec2 &cp1, const ImVec2 &pos1, ImU32 col, float thickness, int num_segments = 0);
+IMGUI_FUNCTION(AddBezierCurve)
+IM_VEC_2_ARG(pos0)
+IM_VEC_2_ARG(cp0)
+IM_VEC_2_ARG(cp1)
+IM_VEC_2_ARG(pos1)
+NUMBER_ARG(col)
+NUMBER_ARG(thickness)
+OPTIONAL_INT_ARG(num_segments, 0)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddBezierCurve, pos0, cp0, cp1, pos1, col, thickness, num_segments)
+END_IMGUI_FUNC
+
+// TODO...
+// How to handle texture?
+//IMGUI_API void  AddImage(ImTextureID user_texture_id, const ImVec2 &a, const ImVec2 &b, const ImVec2 &uv0 = ImVec2(0, 0), const ImVec2 &uv1 = ImVec2(1, 1), ImU32 col = 0xFFFFFFFF);
+
+// How to pass and retrieve a table for the first argument?
+// Probably easier to just make wrappers for these in the pso table.
+//IMGUI_API void  AddPolyline(const ImVec2 *points, const int num_points, ImU32 col, bool closed, float thickness, bool anti_aliased);
+//IMGUI_API void  AddConvexPolyFilled(const ImVec2 *points, const int num_points, ImU32 col, bool anti_aliased);
+
+
+
 //    IMGUI_API ImGuiContext* CreateContext(void* (*malloc_fn)(size_t) = NULL, void (*free_fn)(void*) = NULL);
 // Unsupported return type ImGuiContext*
 //    IMGUI_API void          DestroyContext(ImGuiContext* ctx);
