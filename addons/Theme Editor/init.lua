@@ -248,10 +248,10 @@ local function PresentColorEditor(label, default, custom)
         imgui.SetTooltip(
             string.format(
                 "#%02X%02X%02X%02X",
-                i_custom[4],
                 i_custom[1],
                 i_custom[2],
-                i_custom[3]
+                i_custom[3],
+                i_custom[4]
             )
         )
     end
