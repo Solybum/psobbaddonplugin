@@ -1,6 +1,7 @@
 local core_mainmenu = require('core_mainmenu')
 local psointernal = require('psointernal')
 local __ = require('util.underscore')
+local os = require('os')
 
 local init
 local present
@@ -14,13 +15,29 @@ mm_button_func = function()
   window_open = not window_open
 end
 
+local function save_log_to_file()
+  local timestamp = os.date("%Y%m%d_%H%M%S")
+  local filename = string.format("psobb_log_%s.txt", timestamp)
+  local file = io.open(filename, "w")
+  
+  if file then
+    for _, v in ipairs(psointernal.log_items) do
+      file:write(string.format("[%s] %s\n", tostring(v[1]), tostring(v[2])))
+    end
+    file:close()
+    print(string.format("Log saved to %s", filename))
+  else
+    print("Failed to save log file")
+  end
+end
+
 init = function()
   core_mainmenu.add_button('Log', mm_button_func)
   return {
     name = "Core - Log",
     author = "Eidolon",
-    version = "0.3.2",
-    description = "Provides a log window for all log items to the pso_on_log callback.",
+    version = "0.3.3",
+    description = "Provides a log window for all log items to the pso_on_log callback, with save functionality.",
     present = present,
     toggleable = false,
   }
@@ -42,6 +59,12 @@ present = function()
   -- Clear button
   if (imgui.Button('Clear')) then
     __.clear(psointernal.log_items)
+  end
+  imgui.SameLine()
+
+  -- Save Log button
+  if (imgui.Button('Save Log')) then
+    save_log_to_file()
   end
   imgui.SameLine()
 
