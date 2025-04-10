@@ -17,7 +17,7 @@ end
 
 local function save_log_to_file()
   local timestamp = os.date("%Y%m%d_%H%M%S")
-  local filename = string.format("psobb_log_%s.txt", timestamp)
+  local filename = string.format("log\\addons_%s.txt", timestamp)
   local file = io.open(filename, "w")
   
   if file then
@@ -37,7 +37,7 @@ init = function()
     name = "Core - Log",
     author = "Eidolon",
     version = "0.3.3",
-    description = "Provides a log window for all log items to the pso_on_log callback, with save functionality.",
+    description = "Provides logging for all log items to the pso_on_log callback, logs can be saved to a file.",
     present = present,
     toggleable = false,
   }
