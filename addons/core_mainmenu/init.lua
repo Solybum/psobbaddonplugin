@@ -8,13 +8,12 @@ local hooked_buttons = {}
 local add_button
 local remove_button
 
-local lib_helpers = require("solylib.helpers")
 local optionsLoaded, options = pcall(require, "core_mainmenu.options")
 
 local optionsFileName = "addons/core_mainmenu/options.lua"
 
 if optionsLoaded then
-    options.windowOpen = lib_helpers.NotNilOrDefault(options.windowOpen, true)
+    options.windowOpen = options.windowOpen == nil and true or options.windowOpen
 else
     options =
     {
