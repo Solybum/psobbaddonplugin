@@ -8,7 +8,19 @@ local hooked_buttons = {}
 local add_button
 local remove_button
 
-local window_open = true
+local lib_helpers = require("solylib.helpers")
+local optionsLoaded, options = pcall(require, "core_mainmenu.options")
+
+local optionsFileName = "addons/core_mainmenu/options.lua"
+
+if optionsLoaded then
+    options.windowOpen = lib_helpers.NotNilOrDefault(options.windowOpen, true)
+else
+    options =
+    {
+        windowOpen = true
+    }
+end
 
 local exit_game_window = false
 
@@ -24,19 +36,34 @@ init = function()
   }
 end
 
+local function SaveOptions(options)
+    local file = io.open(optionsFileName, "w")
+    if file ~= nil then
+        io.output(file)
+
+        io.write("return\n")
+        io.write("{\n")
+        io.write(string.format("    windowOpen = %s,\n", tostring(options.windowOpen)))
+        io.write("}\n")
+
+        io.close(file)
+    end
+end
+
 key_pressed = function(key)
   if (key == 192) then
-    window_open = not window_open
+    options.windowOpen = not options.windowOpen
+    SaveOptions(options)
   end
 end
 
 present = function()
-  if (not window_open) then
+  if (not options.windowOpen) then
     return
   end
   local status
   imgui.SetNextWindowSize(200, 250, 'FirstUseEver')
-  status, window_open = imgui.Begin('Main', window_open)
+  status, options.windowOpen = imgui.Begin('Main', options.windowOpen)
   for name, func in pairs(hooked_buttons) do
     if (imgui.Button(name)) then
       func()
