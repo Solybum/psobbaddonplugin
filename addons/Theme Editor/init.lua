@@ -42,16 +42,6 @@ function LIP.load(fileName)
         end
         local param, value = line:match('^([%w|_]+)%s-=%s-(.+)$');
         if(param and value ~= nil)then
-            if(tonumber(value))then
-                value = tonumber(value);
-            elseif(value == 'true')then
-                value = true;
-            elseif(value == 'false')then
-                value = false;
-            end
-            if(tonumber(param))then
-                param = tonumber(param);
-            end
             data[section][param] = value;
         end
     end
@@ -339,7 +329,7 @@ local function init()
     return
     {
         name = "Theme Editor",
-        version = "1.1.0",
+        version = "1.1.1",
         author = "Solybum",
         description = "Theme editor for framework global theme",
         present = present,
