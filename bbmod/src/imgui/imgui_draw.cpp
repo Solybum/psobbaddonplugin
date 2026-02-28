@@ -1566,6 +1566,17 @@ const ImWchar*  ImFontAtlas::GetGlyphRangesChinese()
     static const ImWchar ranges[] =
     {
         0x0020, 0x00FF, // Basic Latin + Latin Supplement
+        0x2000, 0x206F, // General Punctuation
+        0x2100, 0x214F, // Letterlike Symbols
+        0x2190, 0x21FF, // Arrows
+        0x2200, 0x22FF, // Mathematical Operators
+        0x2300, 0x23FF, // Miscellaneous Technical
+        0x2500, 0x257F, // Box Drawing
+        0x2580, 0x259F, // Block Elements
+        0x25A0, 0x25FF, // Geometric Shapes
+        0x2600, 0x26FF, // Miscellaneous Symbols
+        0x2700, 0x27BF, // Dingbats
+        0x2B00, 0x2BFF, // Miscellaneous Symbols
         0x3000, 0x30FF, // Punctuations, Hiragana, Katakana
         0x31F0, 0x31FF, // Katakana Phonetic Extensions
         0xFF00, 0xFFEF, // Half-width characters
