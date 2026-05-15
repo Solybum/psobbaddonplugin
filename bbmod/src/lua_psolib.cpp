@@ -8,6 +8,7 @@
 #include "log.h"
 #include "version.h"
 #include "wrap_imgui_impl.h"
+#include "lua_image.h"
 #define PSOBB_HWND_PTR (HWND*)(0x00ACBED8 - 0x00400000 + g_PSOBaseAddress)
 static int wrap_exceptions(lua_State *L, lua_CFunction f);
 static int psolua_print(lua_State *L);
@@ -198,10 +199,17 @@ void psolua_load_library(lua_State * L) {
 
     // ImGui library
     luaopen_imgui(L);
+
+    // Image / texture loading API (pso.load_texture, pso.unload_texture)
+    psolua_register_image_library(L);
 }
 
 void psolua_initialize_state(void) {
     if (g_LuaState != nullptr) {
+        // Release any textures created by the previous Lua state. The
+        // lightuserdata handles held by addons become invalid here, but
+        // since the state itself is being torn down that's expected.
+        psolua_release_all_textures();
         lua_close(g_LuaState);
         g_LuaState = nullptr;
     }

@@ -536,6 +536,10 @@ void ImGui_ImplD3D8_Shutdown(void) {
 
 }
 
+IDirect3DDevice8* ImGui_ImplD3D8_GetDevice(void) {
+    return g_device;
+}
+
 void ImGui_ImplD3D8_NewFrame(void) {
     if (!g_FontTexture || !g_DepthBuffer)
         ImGui_ImplDX9_CreateDeviceObjects();
