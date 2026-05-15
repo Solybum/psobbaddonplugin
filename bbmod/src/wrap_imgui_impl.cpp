@@ -33,7 +33,6 @@
 ** Love implentation functions
 */
 static bool g_inited = false;
-static int	g_textures[250]; // Should be enough
 
 /*
 ** Wrapped functions
@@ -45,17 +44,22 @@ static int impl_##name(lua_State *L) { \
   int arg = 1; \
   int stackval = 0;
 
+// Accept a texture handle from Lua. pso.load_texture returns a lightuserdata
+// holding an LPDIRECT3DTEXTURE8 pointer; we also accept a number for callers
+// that already have a raw pointer value.
 #define TEXTURE_ARG(name) \
-    lua_getglobal(L, "imgui"); \
-    lua_pushvalue(L, arg++); \
-    lua_setfield(L, -2, "textureID"); \
-    luaL_dostring(L, "imgui.textures = imgui.textures or {}\
-                      table.insert(imgui.textures, imgui.textureID)\
-                      return #imgui.textures"); \
-    lua_pop(L, 1); \
-    int index = luaL_checkint(L, 0);\
-    g_textures[index - 1] = index; \
-    void *name = &g_textures[index - 1]; \
+  void *name = NULL; \
+  { \
+    int _tex_t = lua_type(L, arg); \
+    if (_tex_t == LUA_TLIGHTUSERDATA || _tex_t == LUA_TUSERDATA) { \
+      name = lua_touserdata(L, arg++); \
+    } else if (_tex_t == LUA_TNUMBER) { \
+      name = (void*)(uintptr_t)lua_tointeger(L, arg++); \
+    } else { \
+      luaL_argerror(L, arg, "expected texture handle from pso.load_texture"); \
+      arg++; \
+    } \
+  }
 
 #define OPTIONAL_LABEL_ARG(name, value) \
   const char* name; \

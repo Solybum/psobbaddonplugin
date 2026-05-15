@@ -62,3 +62,23 @@ PSO specific functions are in the `pso` global table.
  * get_language -- retrieves the language value for addons to handle translation.
  * get_version -- returns a table containing fields `version_string`, `major`, `minor`, and `patch`. The latter three are integer values corresponding to the plugin's version number. The `version_string` is a string representation.
  * require_version -- accepts three arguments specifying the version and returns true if the plugin's version is at that level or higher.
+ * load_texture(path) -- load an image file (PNG, JPG, BMP, GIF, TIFF, etc. — anything WIC supports) and return a texture handle. Returns `handle, width, height` on success, or `nil, error_message` on failure. The handle is a lightuserdata wrapping a D3D8 texture and can be passed directly to `imgui.Image` / `imgui.ImageButton`. Path is relative to the PSOBB install directory (e.g. `"addons/MyAddon/icon.png"`).
+ * unload_texture(handle) -- release a texture handle previously returned by `load_texture`. All textures are also released automatically when the Lua state is reloaded via `pso.reload()`.
+
+### Displaying images in an addon
+
+```lua
+local tex, w, h = pso.load_texture("addons/MyAddon/logo.png")
+if tex then
+    imgui.Image(tex, w, h)
+end
+```
+
+For caching and a friendlier API, see `addons/solylib/image.lua`:
+
+```lua
+local image = require("solylib.image")
+image.Draw("addons/MyAddon/logo.png")        -- native size
+image.Draw("addons/MyAddon/logo.png", 64, 64) -- explicit size
+if image.Button("addons/MyAddon/btn.png", 32, 32) then ... end
+```
